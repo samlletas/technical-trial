@@ -1,0 +1,16 @@
+# Keeps consistent coding style across editors
+
+# Top-most EditorConfig file
+root = true
+
+# Settings for all files
+[*]
+indent_style = space
+indent_size = 4
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Lua's manual uses 2 spaces so I'll do the same
+[*.lua]
+indent_size = 2
