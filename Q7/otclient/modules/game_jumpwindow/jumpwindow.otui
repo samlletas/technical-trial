@@ -1,0 +1,12 @@
+// I define here the window and button styling, the function to
+// randomize the button position is called from here.
+JumpWindow < MainWindow
+  id: jumpWindow
+  size: 300 300
+  @onEscape: modules.game_jumpwindow.closeWindow()
+
+  Button
+    id: jumpButton
+    !text: tr('Jump!')
+    width: 70
+    @onClick: modules.game_jumpwindow.resetButtonPosition()

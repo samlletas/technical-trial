@@ -57,6 +57,10 @@ void AdaptativeFrameCounter::processNextFrame()
     m_frames++;
     m_partialFrames++;
     m_frameDelaySum += now - m_lastFrame;
+
+    // We get the amount of elapsed microseconds since the last frame, and then divide it
+    // by 1000000 to convert it to seconds (working in seconds is more user-friendly).
+    m_deltaTime = (now - m_lastFrame) / 1000000.0f;
     m_lastFrame = now ;
 }
 

@@ -185,6 +185,13 @@ void GraphicalApplication::run()
 
                 // update screen pixels
                 g_window.swapBuffers();
+
+                // I needed an event that executed each frame but was not able to find it, the closest one 
+                // was 'onFps' but that seems to trigger only once per second, after some digging I found that
+                // the rendering code has 2 layers: 'background' for game stuff and 'foreground' for UI. So I
+                // ended up adding a new event here after foreground rendering. DeltaTime is sent as a parameter
+                // to allow Lua scripts to know how much time has passed since the last frame.
+                g_lua.callGlobalField("g_app", "onForegroundFrame", m_foregroundFrameCounter.getDeltaTime());
             }
 
             // only update the current time once per frame to gain performance

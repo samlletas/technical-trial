@@ -1,0 +1,11 @@
+// Looking at how other UI elements are organized in modules (like the questlog or the console)
+// I decided to create one as well.
+Module
+  name: game_jumpwindow
+  description: Window with a jumpy button
+  author: sam
+  website: https://github.com/samlletas/
+  sandboxed: true
+  scripts: [ jumpwindow ]
+  @onLoad: init()
+  @onUnload: terminate()

@@ -31,5 +31,7 @@ Module
     - game_cooldown
     - game_modaldialog
     - game_unjustifiedpoints
+    // Makes sure to load the JumpWindow module after the UI loads
+    - game_jumpwindow
   @onLoad: init()
   @onUnload: terminate()

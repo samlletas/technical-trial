@@ -55,6 +55,10 @@ public:
     int getFrames() { return m_frames; }
     float getMediumFrameDelay() { return m_mediumFrameDelay; }
 
+    // Returns how much time has passed since the last frame, we need
+    // this to achieve framerate-independent movement.
+    float getDeltaTime() { return m_deltaTime; }
+
 private:
     int m_frames;
     int m_partialFrames;
@@ -69,6 +73,7 @@ private:
     ticks_t m_lastFpsUpdate;
     ticks_t m_lastPartialFpsUpdate;
     float m_sleepMicros;
+    float m_deltaTime;
 };
 
 #endif
