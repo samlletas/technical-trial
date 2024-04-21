@@ -16,6 +16,7 @@ SpelllistSettings = {
 
 SpellInfo = {
   ['Default'] = {
+    ['Me Congelo'] =               {id = 300, words = 'frio',                  exhaustion = 0,     premium = false, type = 'Instant', icon = 'eternalwinter',          mana = 0,      level = 1,  soul = 0, group = {[1] = 0000},               vocations = {1, 2, 3, 4, 5, 6, 7, 8}},
     ['Death Strike'] =             {id = 87,  words = 'exori mort',            exhaustion = 2000,  premium = true,  type = 'Instant', icon = 'deathstrike',            mana = 20,     level = 16, soul = 0, group = {[1] = 2000},               vocations = {1, 5}},
     ['Flame Strike'] =             {id = 89,  words = 'exori flam',            exhaustion = 2000,  premium = true,  type = 'Instant', icon = 'flamestrike',            mana = 20,     level = 14, soul = 0, group = {[1] = 2000},               vocations = {1, 2, 5, 6}},
     ['Strong Flame Strike'] =      {id = 150, words = 'exori gran flam',       exhaustion = 8000,  premium = true,  type = 'Instant', icon = 'strongflamestrike',      mana = 60,     level = 70, soul = 0, group = {[1] = 2000, [4] = 8000},   vocations = {1, 5}},

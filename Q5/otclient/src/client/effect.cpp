@@ -46,13 +46,10 @@ void Effect::drawEffect(const Point& dest, float scaleFactor, bool animate, int 
         }
     }
 
-    int xPattern = offsetX % getNumPatternX();
-    if(xPattern < 0)
-        xPattern += getNumPatternX();
-
-    int yPattern = offsetY % getNumPatternY();
-    if(yPattern < 0)
-        yPattern += getNumPatternY();
+    // Fixes incorrect rendering of the effect in some patterns, solution from:
+    // https://otland.net/threads/broken-effects-drawing.271577/#post-2616167
+    int xPattern = m_position.x % getNumPatternX();
+    int yPattern = m_position.y % getNumPatternY();
 
     rawGetThingType()->draw(dest, scaleFactor, 0, xPattern, yPattern, 0, animationPhase, lightView);
 }
