@@ -38,6 +38,9 @@ void ShaderManager::init()
 
     m_defaultMapShader = createFragmentShaderFromCode("Map", glslMainFragmentShader + glslTextureSrcFragmentShader);
 
+    // Load the outline shader so that it can be used for rendering in the OTClient.
+    m_outlineShader = createFragmentShaderFromCode("Outline", glslMainFragmentShader + glslTextureOutlineFragmentShader);
+
     PainterShaderProgram::release();
 }
 
@@ -45,6 +48,7 @@ void ShaderManager::terminate()
 {
     m_defaultItemShader = nullptr;
     m_defaultMapShader = nullptr;
+    m_outlineShader = nullptr;
     m_shaders.clear();
 }
 

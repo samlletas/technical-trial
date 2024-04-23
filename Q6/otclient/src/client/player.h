@@ -34,6 +34,22 @@ public:
 
     PlayerPtr asPlayer() { return static_self_cast<Player>(); }
     bool isPlayer() { return true; }
+
+    virtual void onPositionChange(const Position& newPos, const Position& oldPos);
+    virtual void draw(const Point& dest, float scaleFactor, bool animate, LightView *lightView = nullptr);
+
+private:
+    virtual void drawDashEffect(const Point& dest, float scaleFactor, bool animate, LightView *lightView = nullptr);
+    bool m_isDashing;
+    float m_dashEffectDistance;
+    float m_dashEffectAngle;
+    Timer m_dashEffectTimer;
 };
+
+const int DASH_EFFECT_GHOSTS = 4;
+const float DASH_EFFECT_DISTANCE_MAX = 24;
+const float DASH_EFFECT_DURATION = 0.1f;
+const float DASH_EFFECT_OPACITY_MIN = 0.2f;
+const float DASH_EFFECT_OPACITY_MAX = 0.8f;
 
 #endif

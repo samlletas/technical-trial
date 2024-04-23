@@ -127,23 +127,18 @@ void MapView::draw(const Rect& rect)
         }
         g_painter->setColor(Color::white);
 
-        auto it = m_cachedVisibleTiles.begin();
-        auto end = m_cachedVisibleTiles.end();
         for(int z=m_cachedLastVisibleFloor;z>=m_cachedFirstVisibleFloor;--z) {
-
-            while(it != end) {
-                const TilePtr& tile = *it;
-                Position tilePos = tile->getPosition();
-                if(tilePos.z != z)
-                    break;
-                else
-                    ++it;
-
-                if (g_map.isCovered(tilePos, m_cachedFirstVisibleFloor))
-                    tile->draw(transformPositionTo2D(tilePos, cameraPosition), scaleFactor, drawFlags);
-                else
-                    tile->draw(transformPositionTo2D(tilePos, cameraPosition), scaleFactor, drawFlags, m_lightView.get());
-            }
+            // Splits tile rendering in two steps:
+            //     1- Terrain
+            //     2- Everything else (creatures, items, walls, etc)
+            // The reason behind this is that I was having an issue with the dash effect rendering because the
+            // tile code renders both the terrain and the things that are standing on it, and since tiles are 
+            // rendered in sequential order from top to bottom then the terrain from the tiles in the lower 
+            // part of the screen was overriding the previously drawn dash effect frames. The issue can be
+            // seen in the following screenshot:
+            // https://i.postimg.cc/JnHRH96V/tile-issue.png
+            drawTiles(z, cameraPosition, scaleFactor, drawFlags & (Otc::DrawGround | Otc::DrawGroundBorders));
+            drawTiles(z, cameraPosition, scaleFactor, drawFlags & ~(Otc::DrawGround | Otc::DrawGroundBorders));
 
             if(drawFlags & Otc::DrawMissiles) {
                 for(const MissilePtr& missile : g_map.getFloorMissiles(z)) {
@@ -282,6 +277,28 @@ void MapView::draw(const Rect& rect)
             p += rect.topLeft();
             animatedText->drawText(p, rect);
         }
+    }
+}
+
+// This is mostly the same rendering code but extracted into it's own method
+// so that it can be called with different draw flags.
+void MapView::drawTiles(int floor, const Position& cameraPosition, float scaleFactor, int drawFlags)
+{
+    auto it = m_cachedVisibleTiles.begin();
+    auto end = m_cachedVisibleTiles.end();
+
+    while(it != end) {
+        const TilePtr& tile = *it;
+        Position tilePos = tile->getPosition();
+        ++it;
+
+        if(tilePos.z != floor)
+            continue;
+
+        if (g_map.isCovered(tilePos, m_cachedFirstVisibleFloor))
+            tile->draw(transformPositionTo2D(tilePos, cameraPosition), scaleFactor, drawFlags);
+        else
+            tile->draw(transformPositionTo2D(tilePos, cameraPosition), scaleFactor, drawFlags, m_lightView.get());
     }
 }
 

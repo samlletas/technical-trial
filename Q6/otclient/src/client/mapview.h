@@ -49,6 +49,7 @@ private:
     void updateGeometry(const Size& visibleDimension, const Size& optimizedSize);
     void updateVisibleTilesCache(int start = 0);
     void requestVisibleTilesCacheUpdate() { m_mustUpdateVisibleTilesCache = true; }
+    void drawTiles(int floor, const Position& cameraPosition, float scaleFactor, int drawFlags);
 
 protected:
     void onTileUpdate(const Position& pos);

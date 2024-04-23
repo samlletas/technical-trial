@@ -47,6 +47,12 @@ inline void writeSLE16(uchar *addr, int16_t value) { addr[1] = value >> 8; addr[
 inline void writeSLE32(uchar *addr, int32_t value) { writeSLE16(addr + 2, value >> 16); writeSLE16(addr, (int16_t)value); }
 inline void writeSLE64(uchar *addr, int64_t value) { writeSLE32(addr + 4, value >> 32); writeSLE32(addr, (int32_t)value); }
 
+// Performs linear interpolation, keeps code cleaner when we want to gradually change values,
+// this function is usually built-in in other engines but I was not able to find it in the
+// OTClient's source so I added it, obtained from:
+// https://stackoverflow.com/a/4353537
+inline float lerp(float from, float to, float factor) { return from + factor * (to - from); }
+
 uint32_t adler32(const uint8_t *buffer, size_t size);
 
 long random_range(long min, long max);

@@ -71,4 +71,26 @@ static const std::string glslSolidColorFragmentShader = "\n\
         return u_Color;\n\
     }\n";
 
+// This is an outline shader for the Godot Engine that I converted to GLSL:
+// https://godotshaders.com/shader/2d-outline-stroke/
+static const std::string glslTextureOutlineFragmentShader = "\n\
+    varying mediump vec2 v_TexCoord;\n\
+    uniform lowp vec4 u_Color;\n\
+    uniform sampler2D u_Tex0;\n\
+    uniform float u_outlineSize = 0.001;\n\
+    uniform vec4 u_outlineColor = vec4(1.0, 0.0, 0.0, 1.0);\n\
+    lowp vec4 calculatePixel() {\n\
+        float outline = texture(u_Tex0, v_TexCoord + vec2(-u_outlineSize, 0)).a;\n\
+        outline += texture(u_Tex0, v_TexCoord + vec2(0, u_outlineSize)).a;\n\
+        outline += texture(u_Tex0, v_TexCoord + vec2(u_outlineSize, 0)).a;\n\
+        outline += texture(u_Tex0, v_TexCoord + vec2(0, -u_outlineSize)).a;\n\
+        outline += texture(u_Tex0, v_TexCoord + vec2(-u_outlineSize, u_outlineSize)).a;\n\
+        outline += texture(u_Tex0, v_TexCoord + vec2(u_outlineSize, u_outlineSize)).a;\n\
+        outline += texture(u_Tex0, v_TexCoord + vec2(-u_outlineSize, -u_outlineSize)).a;\n\
+        outline += texture(u_Tex0, v_TexCoord + vec2(u_outlineSize, -u_outlineSize)).a;\n\
+        outline = min(outline, 1.0);\n\
+        vec4 pixel = texture2D(u_Tex0, v_TexCoord);\n\
+        return mix(pixel, u_outlineColor, outline - pixel.a) * u_Color;\n\
+    }\n";
+
 #endif

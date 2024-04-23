@@ -311,7 +311,8 @@ void LocalPlayer::onAppear()
 
 void LocalPlayer::onPositionChange(const Position& newPos, const Position& oldPos)
 {
-    Creature::onPositionChange(newPos, oldPos);
+    // Fixes the 'onPositionChange' method not being called in the Player class.
+    Player::onPositionChange(newPos, oldPos);
 
     if(newPos == m_autoWalkDestination)
         stopAutoWalk();
