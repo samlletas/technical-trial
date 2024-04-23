@@ -8,6 +8,11 @@
 
 https://github.com/samlletas/technical-trial/assets/7089504/d1c1bba8-c939-41f1-860b-6df99441b8bc
 
+### Question 6
+[Commit with answer](https://github.com/samlletas/technical-trial/commit/1998762a65d86fb1303d2b5bfd86772eaf6e6b51)
+
+https://github.com/samlletas/technical-trial/assets/7089504/60dd7b87-d9fb-483b-bf50-d3ef5b78820c
+
 ### Question 7
 [Commit with answer](https://github.com/samlletas/technical-trial/commit/45067c7acbb133de8dfb72acb6a0ed07e95355f3)
 
